@@ -1,0 +1,522 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>My Agenda</title>
+  
+  <!-- Fonts & External Libraries -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Theme CSS Custom Variables System */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #FDF3F6 0%, #F8E4EC 50%, #F3D9E5 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #F3C8D9;
+      --card-shadow: 0 8px 24px rgba(220, 120, 160, 0.08);
+      --primary: #DB6B93;
+      --primary-hover: #C9547E;
+      --primary-light: #FDF0F5;
+      --text-main: #4A3B43;
+      --text-muted: #9E8290;
+      --text-heading: #9B3B60;
+      --accent: #E682A6;
+      --nav-bg: rgba(255, 255, 255, 0.95);
+      --input-bg: #FAF0F4;
+      --topic-bg-1: #FFF3F7;
+      --topic-bg-2: #F6FAED;
+      --topic-bg-3: #F8F2FC;
+      --topic-bg-4: #EDF6FA;
+      --theme-badge: "🌸";
+    }
+
+    [data-theme="Girly Romance"] {
+      --bg-gradient: linear-gradient(135deg, #FDF3F6 0%, #F8E4EC 50%, #F3D9E5 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #F3C8D9;
+      --card-shadow: 0 8px 24px rgba(220, 120, 160, 0.08);
+      --primary: #DB6B93;
+      --primary-hover: #C9547E;
+      --primary-light: #FDF0F5;
+      --text-main: #4A3B43;
+      --text-muted: #9E8290;
+      --text-heading: #9B3B60;
+      --accent: #E682A6;
+      --nav-bg: rgba(255, 255, 255, 0.95);
+      --input-bg: #FAF0F4;
+      --topic-bg-1: #FFF3F7;
+      --topic-bg-2: #F7FAF0;
+      --topic-bg-3: #F9F2FC;
+      --topic-bg-4: #EEF7FA;
+      --theme-badge: "🌸";
+    }
+
+    /* Cherry Bows Coquette - Enhanced Rich Crimson & Ruby Shades (No grey!) */
+    [data-theme="Cherry Bows Coquette"] {
+      --bg-gradient: linear-gradient(135deg, #180309 0%, #350714 50%, #150207 100%);
+      --card-bg: #2B0711;
+      --card-border: #6B1328;
+      --card-shadow: 0 8px 30px rgba(229, 9, 64, 0.3);
+      --primary: #FF2A55;
+      --primary-hover: #E0133C;
+      --primary-light: #450A19;
+      --text-main: #FFE6EC;
+      --text-muted: #C48092;
+      --text-heading: #FF6B8B;
+      --accent: #E60039;
+      --nav-bg: #130206;
+      --input-bg: #3B0918;
+      --topic-bg-1: #3D0A19; /* Rich Crimson Rose */
+      --topic-bg-2: #480C1E; /* Deep Ruby Velvet */
+      --topic-bg-3: #350817; /* Dark Mulberry Wine */
+      --topic-bg-4: #430B1C; /* Garnet Passion */
+      --theme-badge: "🍒";
+    }
+
+    [data-theme="Teddy Bear Bakery"] {
+      --bg-gradient: linear-gradient(135deg, #FFF9F2 0%, #F7EBE1 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #EED7C5;
+      --card-shadow: 0 8px 24px rgba(180, 130, 90, 0.12);
+      --primary: #A06D42;
+      --primary-hover: #82532A;
+      --primary-light: #FAF0E6;
+      --text-main: #4A3A30;
+      --text-muted: #9E8A7C;
+      --text-heading: #704728;
+      --accent: #D4A373;
+      --nav-bg: #FFFFFF;
+      --input-bg: #FAF3EC;
+      --topic-bg-1: #FFF5EB;
+      --topic-bg-2: #F5EBE6;
+      --topic-bg-3: #FFF0E5;
+      --topic-bg-4: #F7EBE1;
+      --theme-badge: "🧸";
+    }
+
+    [data-theme="Neon Glow Butterfly"] {
+      --bg-gradient: linear-gradient(135deg, #0B081A 0%, #1B1233 50%, #0F0A21 100%);
+      --card-bg: #1B1233;
+      --card-border: #52378C;
+      --card-shadow: 0 8px 32px rgba(177, 86, 255, 0.3);
+      --primary: #D070FF;
+      --primary-hover: #B847FF;
+      --primary-light: #2D1A52;
+      --text-main: #F2E8FF;
+      --text-muted: #9D8BBF;
+      --text-heading: #E5A3FF;
+      --accent: #FF61D2;
+      --nav-bg: #0C081A;
+      --input-bg: #261947;
+      --topic-bg-1: #2B1B4F;
+      --topic-bg-2: #341D5E;
+      --topic-bg-3: #231642;
+      --topic-bg-4: #381E63;
+      --theme-badge: "🦋";
+    }
+
+    [data-theme="That Girl Achiever"] {
+      --bg-gradient: linear-gradient(135deg, #F8F5F0 0%, #EFE9E0 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #D8CEBE;
+      --card-shadow: 0 10px 28px rgba(120, 100, 80, 0.1);
+      --primary: #8C6D46;
+      --primary-hover: #6E5332;
+      --primary-light: #F4EFEA;
+      --text-main: #2D2721;
+      --text-muted: #82786E;
+      --text-heading: #544129;
+      --accent: #B08E61;
+      --nav-bg: #FFFFFF;
+      --input-bg: #F7F3ED;
+      --topic-bg-1: #FAF6F0;
+      --topic-bg-2: #F0EAE1;
+      --topic-bg-3: #F5EFEB;
+      --topic-bg-4: #EFE8DF;
+      --theme-badge: "👑";
+    }
+
+    [data-theme="Lavender Cloud Fairy"] {
+      --bg-gradient: linear-gradient(135deg, #F3ECFE 0%, #E8DCFD 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #D8C3F8;
+      --card-shadow: 0 8px 24px rgba(147, 112, 219, 0.12);
+      --primary: #8A5CF6;
+      --primary-hover: #7C3AED;
+      --primary-light: #F3EDFF;
+      --text-main: #3B2D54;
+      --text-muted: #8675A1;
+      --text-heading: #6D28D9;
+      --accent: #A78BFA;
+      --nav-bg: #FFFFFF;
+      --input-bg: #F8F4FF;
+      --topic-bg-1: #F3E8FF;
+      --topic-bg-2: #EDE9FE;
+      --topic-bg-3: #FAE8FF;
+      --topic-bg-4: #E0E7FF;
+      --theme-badge: "☁️";
+    }
+
+    [data-theme="Ladyboss Gold"] {
+      --bg-gradient: linear-gradient(135deg, #FAF6F0 0%, #F5EBE0 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #E8D8B0;
+      --card-shadow: 0 8px 24px rgba(212, 175, 55, 0.12);
+      --primary: #B8860B;
+      --primary-hover: #996515;
+      --primary-light: #FFF9E6;
+      --text-main: #332C1E;
+      --text-muted: #8C7B6B;
+      --text-heading: #8B6508;
+      --accent: #D4AF37;
+      --nav-bg: #FFFFFF;
+      --input-bg: #FAF4E8;
+      --topic-bg-1: #FFF8DC;
+      --topic-bg-2: #FDF5E6;
+      --topic-bg-3: #FAF0E6;
+      --topic-bg-4: #FFF5EE;
+      --theme-badge: "✨";
+    }
+
+    [data-theme="Matcha Sage"] {
+      --bg-gradient: linear-gradient(135deg, #F4F7F4 0%, #E2EBE2 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #C8E6C9;
+      --card-shadow: 0 8px 24px rgba(76, 175, 80, 0.1);
+      --primary: #4CAF50;
+      --primary-hover: #388E3C;
+      --primary-light: #E8F5E9;
+      --text-main: #2E3D2F;
+      --text-muted: #687D69;
+      --text-heading: #2E7D32;
+      --accent: #81C784;
+      --nav-bg: #FFFFFF;
+      --input-bg: #F1F8F1;
+      --topic-bg-1: #F0F7F0;
+      --topic-bg-2: #E8F5E9;
+      --topic-bg-3: #EAF4EC;
+      --topic-bg-4: #F2F8F2;
+      --theme-badge: "🍵";
+    }
+
+    /* NEW THEME 1: Ocean Breeze Lagoon */
+    [data-theme="Ocean Breeze Lagoon"] {
+      --bg-gradient: linear-gradient(135deg, #EBF8FA 0%, #D4F0F5 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #B2E5EE;
+      --card-shadow: 0 8px 24px rgba(0, 168, 204, 0.12);
+      --primary: #008B8B;
+      --primary-hover: #006666;
+      --primary-light: #E0F7FA;
+      --text-main: #1C3B43;
+      --text-muted: #62929E;
+      --text-heading: #005F73;
+      --accent: #20B2AA;
+      --nav-bg: #FFFFFF;
+      --input-bg: #E6F5F8;
+      --topic-bg-1: #E0F2F1;
+      --topic-bg-2: #E0F7FA;
+      --topic-bg-3: #E8F8F5;
+      --topic-bg-4: #DEF3F6;
+      --theme-badge: "🌊";
+    }
+
+    /* NEW THEME 2: Boba Milk Tea */
+    [data-theme="Boba Milk Tea"] {
+      --bg-gradient: linear-gradient(135deg, #FAF4EE 0%, #EFE1D5 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #DEC8B7;
+      --card-shadow: 0 8px 24px rgba(139, 94, 60, 0.12);
+      --primary: #8B5E3C;
+      --primary-hover: #6E472B;
+      --primary-light: #F7EFE9;
+      --text-main: #3D291D;
+      --text-muted: #8F7666;
+      --text-heading: #683B1D;
+      --accent: #C68B59;
+      --nav-bg: #FFFFFF;
+      --input-bg: #F5EAE1;
+      --topic-bg-1: #FAF0E6;
+      --topic-bg-2: #F3E5D8;
+      --topic-bg-3: #F7EDE2;
+      --topic-bg-4: #EFE3D3;
+      --theme-badge: "🧋";
+    }
+
+    /* NEW THEME 3: Midnight Starlight */
+    [data-theme="Midnight Starlight"] {
+      --bg-gradient: linear-gradient(135deg, #090B1E 0%, #15193B 50%, #080A18 100%);
+      --card-bg: #121633;
+      --card-border: #333B73;
+      --card-shadow: 0 8px 32px rgba(99, 102, 241, 0.25);
+      --primary: #818CF8;
+      --primary-hover: #6366F1;
+      --primary-light: #1E234A;
+      --text-main: #E0E7FF;
+      --text-muted: #818CF8;
+      --text-heading: #A5B4FC;
+      --accent: #C084FC;
+      --nav-bg: #090B1B;
+      --input-bg: #1B2047;
+      --topic-bg-1: #1B214C;
+      --topic-bg-2: #212859;
+      --topic-bg-3: #181D45;
+      --topic-bg-4: #242B61;
+      --theme-badge: "🌌";
+    }
+
+    /* NEW THEME 4: Sunset Coquette */
+    [data-theme="Sunset Coquette"] {
+      --bg-gradient: linear-gradient(135deg, #FFF0ED 0%, #FDE2DC 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #F8C3B8;
+      --card-shadow: 0 8px 24px rgba(235, 110, 80, 0.12);
+      --primary: #E05A47;
+      --primary-hover: #C24230;
+      --primary-light: #FDEFEF;
+      --text-main: #4A2825;
+      --text-muted: #A3736D;
+      --text-heading: #A63828;
+      --accent: #F28474;
+      --nav-bg: #FFFFFF;
+      --input-bg: #FBECE8;
+      --topic-bg-1: #FFF0EB;
+      --topic-bg-2: #FDE8E3;
+      --topic-bg-3: #FFF4F0;
+      --topic-bg-4: #FCEBE6;
+      --theme-badge: "🌅";
+    }
+
+    /* NEW THEME 5: Cotton Candy Dream */
+    [data-theme="Cotton Candy Dream"] {
+      --bg-gradient: linear-gradient(135deg, #EBF5FF 0%, #FDE8F5 100%);
+      --card-bg: #FFFFFF;
+      --card-border: #D1E3FF;
+      --card-shadow: 0 8px 24px rgba(186, 104, 200, 0.12);
+      --primary: #AB47BC;
+      --primary-hover: #8E24AA;
+      --primary-light: #F8E8FB;
+      --text-main: #33233B;
+      --text-muted: #886C96;
+      --text-heading: #7B1FA2;
+      --accent: #29B6F6;
+      --nav-bg: #FFFFFF;
+      --input-bg: #F3EDFD;
+      --topic-bg-1: #F4E8FF;
+      --topic-bg-2: #E3F2FD;
+      --topic-bg-3: #FCE4EC;
+      --topic-bg-4: #EDE7F6;
+      --theme-badge: "🧁";
+    }
+
+    .theme-accent-border {
+      border-left: 5px solid var(--primary) !important;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    .font-script {
+      font-family: 'Caveat', cursive;
+    }
+
+    .font-serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+
+    .card-style {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: var(--card-shadow);
+      border-radius: 24px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      border-radius: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      border-radius: 14px;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.97);
+    }
+
+    .input-style {
+      background-color: var(--input-bg);
+      border: 1.5px solid var(--card-border);
+      color: var(--text-main);
+      border-radius: 12px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .input-style:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(219, 107, 147, 0.15);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 5px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 10px;
+    }
+
+    .current-day-badge {
+      background-color: var(--primary);
+      color: #ffffff !important;
+      font-weight: 800;
+      box-shadow: 0 0 10px var(--primary);
+    }
+
+    .completed-task {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body class="selection:bg-pink-200">
+
+  <!-- Splash Screen -->
+  <div id="splash-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center p-6 text-center transition-opacity duration-500" style="background: var(--bg-gradient);">
+    <div class="relative flex items-center justify-center mb-6">
+      <div class="w-32 h-32 rounded-full flex items-center justify-center shadow-2xl relative animate-pulse" style="background-color: var(--card-bg); border: 2px solid var(--card-border);">
+        <span class="text-6xl animate-bounce" id="splash-icon">🌸</span>
+        <span class="absolute -top-1 -right-1 text-2xl animate-spin" style="animation-duration: 4s;">✨</span>
+        <span class="absolute -bottom-1 -left-1 text-2xl">💖</span>
+      </div>
+    </div>
+    <h1 class="text-4xl font-extrabold tracking-wide font-script mb-2" style="color: var(--primary);" id="splash-title">My Daily Agenda</h1>
+    <p class="text-xs uppercase tracking-widest font-bold" style="color: var(--text-muted);" data-i18n="plannerSubtitle">DESIGNED FOR DISCIPLINE & GROWTH</p>
+  </div>
+
+  <!-- App Multi-Option Lock Overlay Screen -->
+  <div id="lock-screen" class="fixed inset-0 z-40 flex flex-col items-center justify-center p-6 text-center hidden" style="background: var(--bg-gradient);">
+    <div class="w-full max-w-sm card-style p-8 flex flex-col items-center">
+      <div class="text-5xl mb-4" id="lock-icon">🔒</div>
+      <h2 class="text-3xl font-script font-bold mb-2" style="color: var(--primary);" data-i18n="appLocked">App Locked</h2>
+      <p id="lock-subtitle" class="text-xs mb-6 font-medium" style="color: var(--text-muted);">Enter PIN, pattern or biometric to unlock</p>
+
+      <!-- PIN Input View -->
+      <div id="lock-type-pin" class="w-full flex flex-col items-center">
+        <div class="flex justify-center gap-3 mb-6" id="pin-inputs-container">
+          <input type="password" maxlength="1" inputmode="numeric" class="pin-digit w-12 h-14 text-center text-2xl font-bold rounded-xl input-style">
+          <input type="password" maxlength="1" inputmode="numeric" class="pin-digit w-12 h-14 text-center text-2xl font-bold rounded-xl input-style">
+          <input type="password" maxlength="1" inputmode="numeric" class="pin-digit w-12 h-14 text-center text-2xl font-bold rounded-xl input-style">
+          <input type="password" maxlength="1" inputmode="numeric" class="pin-digit w-12 h-14 text-center text-2xl font-bold rounded-xl input-style">
+        </div>
+        <button onclick="verifyPin()" class="btn-primary w-full py-3 text-sm font-bold shadow-lg" data-i18n="unlockApp">Unlock App</button>
+      </div>
+
+      <!-- Pattern Lock View -->
+      <div id="lock-type-pattern" class="w-full flex flex-col items-center hidden">
+        <canvas id="pattern-canvas" width="220" height="220" class="mb-4 touch-none rounded-2xl" style="background: var(--input-bg); border: 1.5px solid var(--card-border);"></canvas>
+        <button onclick="verifyPattern()" class="btn-primary w-full py-3 text-sm font-bold shadow-lg">Verify Pattern</button>
+      </div>
+
+      <!-- Biometric View -->
+      <div id="lock-type-biometric" class="w-full flex flex-col items-center hidden">
+        <button onclick="verifyBiometric()" class="w-24 h-24 rounded-full flex items-center justify-center text-5xl mb-4 animate-pulse btn-secondary shadow-lg">
+          👆
+        </button>
+        <p class="text-xs font-bold mb-4" style="color: var(--primary);">Touch fingerprint sensor to scan</p>
+      </div>
+
+      <!-- Lock Mode Switcher Chips -->
+      <div class="flex items-center gap-2 mt-6 border-t pt-4 w-full justify-center" style="border-color: var(--card-border);">
+        <button onclick="switchLockView('pin')" class="text-xs font-extrabold px-3 py-1.5 rounded-full btn-secondary">PIN</button>
+        <button onclick="switchLockView('pattern')" class="text-xs font-extrabold px-3 py-1.5 rounded-full btn-secondary">Pattern</button>
+        <button onclick="switchLockView('biometric')" class="text-xs font-extrabold px-3 py-1.5 rounded-full btn-secondary">Fingerprint</button>
+      </div>
+
+      <p id="pin-error-msg" class="text-red-500 text-xs font-semibold mt-3 hidden">Verification failed. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- Top Application Header -->
+  <header class="sticky top-0 z-20 backdrop-blur-md px-5 py-3.5 flex items-center justify-between border-b transition-colors" style="background-color: var(--nav-bg); border-color: var(--card-border);">
+    <div class="flex items-center gap-2">
+      <span class="text-2xl" id="header-badge">🌸</span>
+      <h1 class="text-2xl font-script font-bold tracking-wide" style="color: var(--primary);" id="header-app-title">My Daily Agenda</h1>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <div id="google-user-profile" class="hidden items-center gap-2">
+        <img id="user-avatar" class="w-7 h-7 rounded-full border" style="border-color: var(--primary);" src="" alt="User Avatar">
+      </div>
+      <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1 rounded-full" style="background-color: var(--primary-light); color: var(--primary);">
+        <span id="current-time-clock">12:00 PM</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 w-full max-w-md mx-auto p-4 pb-28 custom-scrollbar">
+
+    <!-- TAB 1: PLANNER -->
+    <section id="tab-planner" class="tab-content block space-y-5">
+      
+      <!-- Daily Header Card -->
+      <div class="card-style p-6 text-center relative overflow-hidden theme-accent-border">
+        <div class="absolute -top-2 -right-2 text-3xl opacity-30 select-none" id="planner-theme-sticker">🌸</div>
+
+        <h2 class="text-2xl font-serif-title font-bold" style="color: var(--text-heading);" data-i18n="plannerTitle">My Daily Planner & Routine</h2>
+        <p class="text-[10px] uppercase font-extrabold tracking-wider mt-1 mb-3" style="color: var(--text-muted);" data-i18n="plannerSubtitle">DESIGNED FOR DISCIPLINE & GROWTH</p>
+
+        <!-- Dynamic Daily Affirmation Banner -->
+        <div class="p-2.5 rounded-xl text-xs font-bold font-script mb-4 flex items-center justify-center gap-1.5" style="background-color: var(--primary-light); color: var(--primary);" id="daily-affirmation-banner">
+          <span>✨ "Small steps today lead to dream results tomorrow."</span>
+        </div>
+
+        <!-- Date Picker & Day badging -->
+        <div class="p-3 rounded-2xl flex flex-col gap-3" style="background-color: var(--input-bg);">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider" style="color: var(--primary);" data-i18n="dateLabel">DATE:</span>
+            <input type="date" id="planner-date-input" class="bg-transparent text-sm font-extrabold focus:outline-none" style="color: var(--primary);" onchange="handleDateChange()">
+          </div>
+
+          <!-- Days of Week Chips -->
+          <div class="flex justify-between items-center text-xs font-bold pt-1 border-t" style="border-color: var(--card-border);">
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="0">S</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="1">M</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="2">T</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="3">W</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="4">T</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="5">F</span>
+            <span class="w-7 h-7 flex items-center justify-center rounded-full day-chip" data-day="6">S</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Custom Topic Cards Container -->
+      <div id="topics-list"
